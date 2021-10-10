@@ -1,14 +1,19 @@
 import Head from "next/head";
-import useCart from '../hooks/cart';
+import { useCartContext } from "../context/cart";
+import { useCart } from '../hooks/cart';
+import NextImage from "../components/Image";
 
 const CartPage = () => {
-  const { cart } = useCart();
+  const { cart } = useCartContext();
 
   return (
     <div>
       <h1>Cart Page</h1>
 
-      {cart.map(item => <p>{item.title}</p>)}
+      {cart.map(item => <div key={item.title}>
+        <NextImage media={item.image} />
+        {item.title}
+      </div>)}
     </div>
   );
 };

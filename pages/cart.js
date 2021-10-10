@@ -1,8 +1,8 @@
 import Head from "next/head";
-import useCart from '../hooks/cart';
+import { useCartContext } from "../context/cart";
 
 const CartPage = () => {
-  const { cart } = useCart();
+  const { cart } = useCartContext();
 
   return (
     <div>

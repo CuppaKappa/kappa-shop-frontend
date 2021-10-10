@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 
 function addItem(state, action) {
-  return [...state, createItem(state, action.payload.item)];
+  return [...state, action.payload.item];
 }
 
 function updateItem(state, action) { }

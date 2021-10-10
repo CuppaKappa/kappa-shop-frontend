@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 
 import NextImage from "../../components/Image";
 import { getProducts, getProduct } from "../../utils/api";
-import { useCartContext } from "../../context/cart";
+
+import useCart from '../../hooks/cart';
 
 const ProductPage = ({ product }) => {
   const router = useRouter();
@@ -11,10 +12,12 @@ const ProductPage = ({ product }) => {
     return <div>Loading product...</div>;
   }
 
-  const cart = useCartContext();
   const addToCart = (e) => {
     e.preventDefault();
-    cart.addItem(product);
+    const { addItem } = useCart();
+
+    console.log(product);
+    addItem(product);
   };
 
   return (

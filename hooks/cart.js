@@ -1,13 +1,17 @@
 import React, { useReducer } from 'react';
 
 function addItem(state, action) {
-  return [...state, action.payload.item];
+  const newState = [...state, action.payload.item];
+  localStorage.setItem('cart', JSON.stringify(newState));
+  return newState;
 }
 
 function updateItem(state, action) { }
 
 function deleteItem(state, action) {
-  return state.filter(item => item.id !== action.payload.item.id);
+  const newState = state.filter(item => item.id !== action.payload.item.id);
+  localStorage.setItem('cart', JSON.stringify(newState));
+  return newState;
 }
 
 function cartReducer(state, action) {
@@ -26,9 +30,10 @@ function cartReducer(state, action) {
 
 function useCart(initialValue) {
   const [state, dispatch] = useReducer(cartReducer, initialValue);
+  const isBrowser = typeof window !== "undefined" && window.localStorage;
 
   return {
-    cart: state,
+    cart: isBrowser ? JSON.parse(localStorage.getItem('cart')) : state,
     addItem: item => dispatch({
       type: 'ADD_ITEM',
       payload: { item }
